@@ -1,0 +1,13 @@
+@import './base.css';
+
+
+body {
+    --text-color-light: #c7c7c7;
+    --text-color-dark: #666;
+    background-color: #0b1c31;
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-color-light);
+}
+/*H1, H2, H3, H4, H5, H6 {*/
+/*    @apply text-white;*/
+/*}*/

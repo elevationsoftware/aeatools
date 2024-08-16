@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+.router-link-active {
+  @apply text-blue-600 font-semibold;
+}
+
