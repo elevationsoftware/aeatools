@@ -8,11 +8,9 @@ const usb = useWebUSBStore();
 </script>
 
 <template>
-  <article>
-    <ConnectedComponent v-if="usb.status === 'connected'" />
-    <ConnectComponent v-else />
-    <ModalComponent :show="usb.status === 'connecting'" message="Connecting..." />
-  </article>
+  <ConnectedComponent v-if="usb.status === 'connected'" />
+  <ConnectComponent v-else />
+  <ModalComponent :show="usb.status === 'connecting'" message="Connecting..." />
 </template>
 
 <style scoped>

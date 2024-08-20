@@ -1,11 +1,6 @@
 import EventEmitter from 'events'
 
 const string2bytes = (str) => Uint8Array.from(str, char => char.charCodeAt(0));
-function escapeNonPrintableCharacters(inputString) {
-  return inputString.replace(/[\x00-\x1F\x7F-\xFF]/g, char =>
-    '\\x' + char.charCodeAt(0).toString(16).padStart(2, '0')
-  );
-}
 
 export class BulkUSBDevice extends EventEmitter {
   constructor(device, interfaceNumber, endpointIn, endpointOut) {
@@ -71,57 +66,6 @@ export class BulkUSBDevice extends EventEmitter {
     this.emit('disconnect');
     console.log('Disconnected from USb device');
   }
-
-//   async sendAndRead(command) {
-//     if (!connected_device) {
-//       throw new Error('Device not connected');
-//     }
-//     await this.sendCommand(command)
-//     return await this.readResponse()
-//   }
-//   async readResponse() {
-//     try {
-//       let response = '';
-//       let empties = 0;
-//       for (let i = 0; i < 3; i++) {
-//         const result = await this.device.transferIn(this.endpointIn.endpointNumber, 64);
-//         if (result.data.byteLength === 64) {
-//           i--;
-//         }
-//         let decoded = new TextDecoder().decode(result.data)
-//         if (decoded === '\x02') {
-//           empties++;
-//         }
-//         if (empties > 4) {
-//           break;
-//         }
-// // console.log('read', i, escapeNonPrintableCharacters(decoded))
-//         response += decoded.replaceAll(/^\x02|\x03$/g, '');
-//       }
-//       response = response.replaceAll(/^\x02+|\x03+$/g, '')
-//       console.log('transferIn', escapeNonPrintableCharacters(response));
-//       return response;
-//
-//     } catch (error) {
-//       console.error('Error reading response:', error);
-//       throw error;
-//     }
-//   }
-
-  // async startReading() {
-  //   try {
-  //     while (this.device.opened) {
-  //       const result = await this.device.transferIn(1, 64);
-  //       let decoded = new TextDecoder().decode(result.data)
-  //       this.emit('data', decoded);
-  //       console.log('transferIn', escapeNonPrintableCharacters(decoded));
-  //     }
-  //   } catch (error) {
-  //     // TODO: catch 'The transfer was cancelled.' error that happens on disconnect()
-  //     console.error('Error reading:', error);
-  //     throw error;
-  //   }
-  // }
   async startReading() {
     let buffer = '';
     const endpointNumber = this.endpointIn.endpointNumber;
@@ -139,11 +83,13 @@ export class BulkUSBDevice extends EventEmitter {
 
           // Remove the processed message from the buffer
           buffer = buffer.substring(stx_index + 1);
-          console.log(escapeNonPrintableCharacters(message));
+          // console.log(escapeNonPrintableCharacters(message));
         }
       }
-    } catch (error) {
-      if (error.message.includes('The transfer was cancelled')) {
+    }
+    catch (error) {
+      const msg = error.message;
+      if (msg.includes('The transfer was cancelled') || msg.includes('The device was disconnected.')) {
         console.log('Reading stopped')
         return;
       }
@@ -155,10 +101,16 @@ export class BulkUSBDevice extends EventEmitter {
     try {
       const bytes = string2bytes(command)
       await this.device.transferOut(this.endpointOut.endpointNumber, bytes)
-// console.log('transferOut', escapeNonPrintableCharacters(command));
+      // console.log('send', escapeNonPrintableCharacters(command));
     } catch (error) {
       console.error('Error sending command:', error);
       throw error;
     }
+  }
+
+  async sendAndRead(cmd) {
+    const p = new Promise((resolve) => this.once('data', resolve));
+    await this.sendCommand(cmd);
+    return p;
   }
 }

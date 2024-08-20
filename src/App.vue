@@ -1,6 +1,6 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import TabNavigation from './components/TabNavigation.vue'
+import Header from './components/Header.vue'
 
 const tabs = [
   { name: 'Connect', route: '/connect' },
@@ -9,8 +9,8 @@ const tabs = [
 </script>
 
 <template>
-  <div class="h-screen flex flex-col">
-    <TabNavigation :tabs="tabs" />
-    <RouterView class="flex-grow" />
+  <div class="h-screen grid grid-rows-[auto_1fr]">
+    <Header :tabs="tabs" />
+    <RouterView />
   </div>
 </template>

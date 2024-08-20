@@ -14,6 +14,9 @@ navigator.usb.addEventListener("connect", (event) => {
 navigator.usb.addEventListener("disconnect", (event) => {
   console.log('Device disconnected', event)
   getPairedDevices();
+  if (connected_device.value && connected_device.value.device === event.device) {
+    status.value = null
+  }
 });
 
 function getPairedDevices() {
