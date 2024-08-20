@@ -43,8 +43,6 @@ async function requestDevice() {
 }
 
 async function connect(device) {
-  const sleep = async (number) => new Promise(resolve => setTimeout(resolve, number));
-
   try {
     status.value = 'connecting'
     // await sleep(1000);
@@ -66,8 +64,8 @@ async function connect(device) {
 }
 
 function forget(device) {
-  if (typeof device !== WebUSBDevice) {
-    console.log('Device is not a WebUSBDevice');
+  if (!(device instanceof USBDevice)) {
+    console.log('Device is not a USBDevice');
   }
   else {
     try {
