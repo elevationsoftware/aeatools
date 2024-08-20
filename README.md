@@ -22,10 +22,13 @@ npm install
 npm run dev
 ```
 
-### Compile and Minify for Production
+### Compile and Minify for Github Pages
 
 ```sh
 npm run build
+git add dist -f
+git commit -am "build for gh-pages"
+git subtree push --prefix dist origin gh-pages
 ```
 
 ### Lint with [ESLint](https://eslint.org/)
