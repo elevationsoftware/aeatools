@@ -4,11 +4,12 @@ import { CommandParsers, Models } from 'aea.js'
 import LogoComponent from '@/components/LogoComponent.vue'
 import PectabComponent from '@/components/PectabComponent.vue'
 import BPTemplateComponent from '@/components/BPTemplateComponent.vue'
-import BagTagTableComponent from '@/components/BagTagTableComponent.vue'
-import BagTagDataComponent from '@/components/BagTagDataComponent.vue'
+// import BagTagTableComponent from '@/components/BagTagTableComponent.vue'
+// import BagTagDataComponent from '@/components/BagTagDataComponent.vue'
 import PrintModelComponent from '@/components/PrintModelComponent.vue'
+import { useAppStore } from '@/stores/appStore.js'
+const app = useAppStore();
 
-const error = ref(null);
 const aea_models = ref([]);
 const btm = ref(null);
 
@@ -24,7 +25,7 @@ function keydown(event) {
   }
   const parser = CommandParsers[cmd];
   if (!parser) {
-    showError(`Unknown command: ${cmd}`);
+    app.showError(`Unknown command: ${cmd}`);
     return
   }
 
@@ -38,13 +39,9 @@ function keydown(event) {
     setTimeout(() => btm.value.scrollIntoView({ behavior: 'smooth' }), 100);
   }
   catch (e) {
-    showError(e.message);
+    app.showError(e.message);
     console.error(e);
   }
-}
-function showError(msg) {
-  error.value = msg;
-  setTimeout(() => error.value = null, 2000);
 }
 function getType(model) {
   if (model instanceof Models.Logo) return LogoComponent;
@@ -57,11 +54,6 @@ function getType(model) {
 </script>
 
 <template>
-  <transition name="fade">
-    <div v-if="error" class="error">
-      {{error}}
-    </div>
-  </transition>
   <article class="p-6 mb-2 h-32 overflow-y-auto whitespace-pre-wrap flex-grow">
     Enter AEA commands below...
     <div v-for="(model, index) in aea_models" :key="index" class="mb-5 border border-gray-400 rounded-lg p-4">
@@ -78,9 +70,6 @@ function getType(model) {
 article > div {
   background-color: cornsilk;
   color: var(--text-color-dark);
-}
-.error {
-  @apply absolute top-5 left-1/2 transform -translate-x-1/2 bg-red-600 text-white px-4 py-2 rounded shadow-lg
 }
 textarea {
   background-color: #2c2c2c;

@@ -1,10 +1,15 @@
 <script setup>
 import { TrashIcon } from '@heroicons/vue/24/solid';
 import { useWebUSBStore } from '@/stores/WebUSBStore.js';
+import { useAppStore } from '@/stores/appStore.js'
 const usb = useWebUSBStore();
+const app = useAppStore();
 
 function req() {
-  usb.requestDevice()
+  usb.requestDevice().catch(app.showError)
+}
+function connect(device) {
+  usb.connect(device).catch(app.showError)
 }
 window.asdf = usb;
 </script>
@@ -21,7 +26,7 @@ window.asdf = usb;
             <li v-for="device in usb.paired">
               <div class="flex">
                 <div class="">
-                  <a @click="usb.connect(device)">
+                  <a @click="connect(device)">
                     {{ device.manufacturerName }} - {{ device.productName }} ({{device.serialNumber}})
                   </a>
                 </div>
@@ -37,13 +42,13 @@ window.asdf = usb;
         Select New Device
       </button>
     </section>
-    <hr class="mt-8 mb-6">
-    <section class="serial">
-      <h3 class="text-2xl font-medium">Serial</h3>
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
-        Select New Device
-      </button>
-    </section>
+<!--    <hr class="mt-8 mb-6">-->
+<!--    <section class="serial">-->
+<!--      <h3 class="text-2xl font-medium">Serial</h3>-->
+<!--      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">-->
+<!--        Select New Device-->
+<!--      </button>-->
+<!--    </section>-->
   </article>
 </template>
 

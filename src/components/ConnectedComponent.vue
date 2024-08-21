@@ -1,8 +1,10 @@
 <script setup>
 import { useWebUSBStore } from '@/stores/WebUSBStore.js';
+import { useAppStore } from '@/stores/appStore.js'
 import { onMounted, onUnmounted, reactive, ref } from 'vue'
 import { parseResponse } from 'aea.js'
 const usb = useWebUSBStore();
+const app = useAppStore();
 
 
 const btm = ref(null);
@@ -44,7 +46,7 @@ const ENV_OPTIONS = {
 console.log(usb)
 
 const parseData = async (data) => {
-  const [code, parsed, hardcode] = parseResponse(data);
+  const [code, parsed] = parseResponse(data);
   console.log(`R: %c${data} %s %O`, 'color: orange;', code, parsed);
   if (code === 'WSOK') WS.value = parsed;
   else if (/ESOK|EPOK/.test(code)) ES.value = parsed;
@@ -103,19 +105,20 @@ async function sendAndRead(command) {
   if (log) {
     messages.value.push(msg);
   }
-  const resp = await usb.connected_device.sendAndRead(`\x02${command}\x03`);
-  msg.received = resp
-  if (command === 'WS') {
-    WS_IN_PROGRESS = false;
-  }
   try {
-    const [code, parsed, hardcode] = parseResponse(resp);
+    const resp = await usb.connected_device.sendAndRead(`\x02${command}\x03`);
+    msg.received = resp
+    if (command === 'WS') {
+      WS_IN_PROGRESS = false;
+    }
+    const [code, parsed] = parseResponse(resp);
     msg.r_data = parsed
+    return resp
   }
   catch (e) {
+    app.error = e.message;
     console.error(e);
   }
-  return resp
 }
 onMounted(async () => {
   console.log('listening for data');
@@ -142,7 +145,7 @@ onMounted(async () => {
 });
 onUnmounted(() => {
   console.log('STOP listening for data');
-  usb.connected_device.off('data', parseData);
+  usb.connected_device?.off('data', parseData);
 });
 
 const MONO = 'M', MULTI = 'X', GLOBAL = 'G';
@@ -159,7 +162,7 @@ async function add_user($event) {
 async function select_user(user) {
   await sendAndRead(`UC#${user}`)
 }
-async function get_user_info(user) {
+async function get_user_info() {
   log = false;
   await sendAndRead('ES')
   await sendAndRead('LS')

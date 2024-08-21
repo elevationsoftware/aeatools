@@ -1,1 +1,0 @@
-import{_ as s,c as e,a as t,b as o}from"./index-DyalBoI4.js";const c={},_={class:"p-6"},n=o("h2",{class:"text-2xl font-bold mb-4"},"Logos",-1),a=o("p",null,"....",-1),r=[n,a];function l(d,i){return t(),e("article",_,r)}const h=s(c,[["render",l]]);export{h as default};

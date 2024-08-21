@@ -33,6 +33,7 @@ async function requestDevice() {
       paired.value.push(device);
     }
     console.log('Device selected:', device);
+    return connect(device);
   } catch (error) {
     if (error.message.includes('No device selected')) {
       return;
@@ -70,6 +71,9 @@ function forget(device) {
   else {
     try {
       device.forget();
+      // For some reason, if you try to connect again- the throws and error.
+      // This is a workaround...
+      window.location.reload();
     }
     catch (error) {
       console.error('Error forgetting device:', error);
