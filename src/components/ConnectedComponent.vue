@@ -2,7 +2,7 @@
 import { useWebUSBStore } from '@/stores/WebUSBStore.js';
 import { useAppStore } from '@/stores/appStore.js'
 import { onMounted, reactive, ref } from 'vue'
-import { parseResponse } from 'aea.js'
+import { CommandParsers, parseResponse } from 'aea.js'
 const usb = useWebUSBStore();
 const app = useAppStore();
 
@@ -21,6 +21,8 @@ const pectabs = ref([]);
 const fonts = ref([]);
 const messages = ref([]);
 let log = false;
+
+const string2bytes = (str) => Uint8Array.from(str, char => char.charCodeAt(0));
 
 const ENV_OPTIONS = {
   VSR: ['Y', 'N'], // 'X' if not available
@@ -62,7 +64,20 @@ async function sendAndRead(command) {
     messages.value.push(msg);
   }
   try {
-    const resp = await usb.connected_device.sendAndRead(`\x02${command}\x03`);
+    if (command.startsWith('LT')) {
+      const lt = CommandParsers.LT(command);
+      if (lt.length * 2 === lt.data.length) {
+        // they are sending binary data - add \x10 before \x02, \x03, \x10
+        const escaped = lt.data.match(/.{2}/g).map(hex => /02|03|10/.test(hex) ? '10' + hex : hex).join('');
+        const data_bytes = new Uint8Array(escaped.match(/.{2}/g).map(byte => parseInt(byte, 16)))
+        command = Uint8Array.from([2, ...string2bytes(command.slice(0, 8)), ...data_bytes, 3])
+      }
+      console.log(lt);
+    }
+    else {
+      command = `\x02${command}\x03`
+    }
+    const resp = await usb.connected_device.sendAndRead(command);
     processResponse(resp, msg);
     return resp
   }
@@ -408,7 +423,14 @@ options {
     background-color: cornsilk;
     color: var(--text-color-dark);
 
-    @apply rounded border p-4
+    @apply rounded border p-4;
+
+    &> span {
+      text-overflow: ellipsis;
+      width: 50vw;
+      display: block;
+      overflow-x: auto;
+    }
   }
   summary {
     line-break: anywhere;

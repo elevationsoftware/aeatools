@@ -100,9 +100,15 @@ export class BulkUSBDevice extends EventEmitter {
     }
   }
   async _sendCommand(command) {
-    console.log(`S: %c${command}`, 'color: blue;');
+    const isBytes = command instanceof Uint8Array
+    if (isBytes) {
+      console.log(`S: %c[BINARY LOGO]`, 'color: blue;');
+    }
+    else {
+      console.log(`S: %c${command}`, 'color: blue;');
+    }
     try {
-      const bytes = string2bytes(command)
+      const bytes = isBytes ? command : string2bytes(command)
       await this.device.transferOut(this.endpointOut.endpointNumber, bytes)
       // console.log('send', escapeNonPrintableCharacters(command));
     } catch (error) {
@@ -115,7 +121,7 @@ export class BulkUSBDevice extends EventEmitter {
     await this.lock.acquire();
     const p = new Promise((resolve) => {
       const to = setTimeout(() =>
-          this.emit('data', `ERR0#${cmd} command failed to respond in ${timeout}ms`)
+          this.emit('data', `ERR0#${cmd.slice(0,2)} command failed to respond in ${timeout}ms`)
         , timeout);
       this.once('data', (resp) => {
         clearTimeout(to);
