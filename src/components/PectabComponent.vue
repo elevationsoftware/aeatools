@@ -77,7 +77,6 @@ function getELementStyle(element, position) {
 
   .numbers-container {
     display: flex;
-    //width: 14.68in;
     width: 100%;
     margin-bottom: 5px;
   }
@@ -98,11 +97,6 @@ function getELementStyle(element, position) {
     height: 100%;
 
     .boarding-pass {
-      //background-image: url('../assets/bp_grid.png');
-      //background-position: center;
-      //background-size: contain;
-      //width: 1405px;
-      //height: 630px;
       width: 100%;
       border: 1px solid grey;
       svg {
@@ -129,7 +123,6 @@ function getELementStyle(element, position) {
   }
   .element {
     position: absolute;
-    //background-color: red;
     border: solid 1px red;
     width: 20px;
     height: 5.7%;

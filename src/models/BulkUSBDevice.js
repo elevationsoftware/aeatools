@@ -3,6 +3,8 @@ import EventEmitter from 'events'
 const string2bytes = (str) => Uint8Array.from(str, char => char.charCodeAt(0));
 
 export class BulkUSBDevice extends EventEmitter {
+  lock = new AsyncLock();
+
   constructor(device, interfaceNumber, endpointIn, endpointOut) {
     super();
     this.device = device;
@@ -79,11 +81,11 @@ export class BulkUSBDevice extends EventEmitter {
         const stx_index = buffer.indexOf('\x03');
         if (stx_index > -1) {
           const message = buffer.substring(1, stx_index)
-          this.emit('data', message);
+          const event = message.startsWith('SQNI')? 'unsolicited' : 'data';
+          this.emit(event, message);
 
           // Remove the processed message from the buffer
           buffer = buffer.substring(stx_index + 1);
-          // console.log(escapeNonPrintableCharacters(message));
         }
       }
     }
@@ -97,7 +99,8 @@ export class BulkUSBDevice extends EventEmitter {
       throw error;
     }
   }
-  async sendCommand(command) {
+  async _sendCommand(command) {
+    console.log(`S: %c${command}`, 'color: blue;');
     try {
       const bytes = string2bytes(command)
       await this.device.transferOut(this.endpointOut.endpointNumber, bytes)
@@ -108,9 +111,46 @@ export class BulkUSBDevice extends EventEmitter {
     }
   }
 
-  async sendAndRead(cmd) {
-    const p = new Promise((resolve) => this.once('data', resolve));
-    await this.sendCommand(cmd);
-    return p;
+  async sendAndRead(cmd, timeout= 1000) {
+    await this.lock.acquire();
+    const p = new Promise((resolve) => {
+      const to = setTimeout(() =>
+          this.emit('data', `ERR0#${cmd} command failed to respond in ${timeout}ms`)
+        , timeout);
+      this.once('data', (resp) => {
+        clearTimeout(to);
+        this.lock.release();
+        console.log(`R: %c${resp}`, 'color: orange;');
+        resolve(resp);
+      });
+    });
+    await this._sendCommand(cmd);
+    return await p;
+  }
+}
+
+class AsyncLock {
+  constructor() {
+    this.locked = false;
+    this.queue = [];
+  }
+
+  async acquire() {
+    if (this.locked) {
+      return new Promise((resolve) => {
+        this.queue.push(resolve);
+      });
+    } else {
+      this.locked = true;
+    }
+  }
+
+  release() {
+    if (this.queue.length > 0) {
+      const next = this.queue.shift();
+      next();
+    } else {
+      this.locked = false;
+    }
   }
 }

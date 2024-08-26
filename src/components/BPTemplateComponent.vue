@@ -66,10 +66,6 @@ function getStyle(element) {
   .box, .line {
     border: solid 1px black;
   }
-  pre {
-    //border: solid 1px black;
-    //background-color: lightcyan;
-  }
   .line {
     border-width: 1px 0 0 0;
   }
