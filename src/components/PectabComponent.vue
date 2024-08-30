@@ -1,13 +1,5 @@
 <script setup>
-// import { onMounted, ref } from 'vue'
-// import PDF417 from 'pdf417-generator'
 const props = defineProps(['aea-model'])
-// const theCanvas = ref(null)
-// import { CommandParsers } from 'aea.js'
-// const props = {
-//   // aeaModel: CommandParsers.PT('PT##?B1A#@;#GTKT#GCKI#GBRD#0101#0222F02A#0322G02A#0422F16A#0522G16A#0622G26A#0722K02A#0822K16A#0922K26A#1022N16A#1130N26A#1220F53A#1312F61A#1420H53A#1520K53A#1612K61A#1720N53A#1812N61A#19BRC681322#2022N32A#2122O26A#2222O32A#2302K35A#2422N02A#FF02A01#')
-//   aeaModel: CommandParsers.PT('PT##?W1A#@;#ATBR#ATBC#ATBC#01011101#0202O61P#0307J56B#0404I54B#0506J64B#0602O54P#0703O57P#0808O35P#0918G10G54B#0A02L46R#0B05L33R#0C05L11R#0D10L41I58#0E04L31R#0F09I60B#1002J54B#1123F10F54B#1203H54B#1322K54Q#1405N41R#1504N44R#1801N46R#1904L20R#1A04H57B#1B05L23R#1C10H08#2105F44B#2209N33F#2315G30B#2418C01#2518R01#2618R10#2A05F30B#30BRE041041#3A30L54Q#4225M54Q#4470Q10L#4A04O66P#4C03G44B#4D04G47B#4E17O43Q#5130R10L#5218E54B#5304R64R#FB10A01#ALCD0A#BORD12#DEST1A#\n')
-// }
 console.log('PectabComponent', props.aeaModel)
 
 function getRandomHexColor() {
@@ -50,7 +42,7 @@ function getELementStyle(element, position) {
         <template v-for="(element, key) in props.aeaModel.elements" :key="key">
           <template v-for="(position, key2) in element.positions" :key="key2">
             <div class="element" :style="getELementStyle(element, position)" :title="JSON.stringify(element)">
-              <img v-if="element.barcode" :class="{rotate: element.barcode.match(/[B-Z]/)}" src="../assets/pdf417_placeholder.png" />
+              <img v-if="element.barcode" :class="{rotate: element.barcode.match(/[B-Z]/)}" src="../assets/PDF_417.png" />
               <span class="rounded bg-black px-0.5">{{ key }}</span>
             </div>
           </template>

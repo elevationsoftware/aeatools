@@ -136,6 +136,8 @@ onMounted(async () => {
   if (mode !== MONO) {
     await sendAndRead('UG#GID')
 
+    // get global environment (may be overwritten below if user is selected)
+    await sendAndRead('ES')
     // get AEA version
     await sendAndRead('AV')
     // get list of users
@@ -158,7 +160,9 @@ onMounted(async () => {
     await sendAndRead('RI')
   }
   await sendAndRead('SQ')
-  await sendAndRead('ES')
+  if (uid !== '???') { // not the "unselected" user
+    await sendAndRead('ES')
+  }
 });
 
 const MONO = 'M', MULTI = 'X', GLOBAL = 'G';

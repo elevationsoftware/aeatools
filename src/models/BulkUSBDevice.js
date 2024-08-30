@@ -117,7 +117,7 @@ export class BulkUSBDevice extends EventEmitter {
     }
   }
 
-  async sendAndRead(cmd, timeout= 1000) {
+  async sendAndRead(cmd, timeout= 15000) {
     await this.lock.acquire();
     const p = new Promise((resolve) => {
       const to = setTimeout(() =>

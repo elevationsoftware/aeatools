@@ -11,7 +11,6 @@ function req() {
 function connect(device) {
   usb.connect(device).catch(app.showError)
 }
-window.asdf = usb;
 </script>
 
 <template>
