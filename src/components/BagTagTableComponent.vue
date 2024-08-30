@@ -211,7 +211,6 @@ function findElement(id) {
       position: absolute;
 
       S, C, img {
-        //background-color: red;
         position: relative;
         display: block;
       }
