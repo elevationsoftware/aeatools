@@ -42,7 +42,7 @@ function getELementStyle(element, position) {
         <template v-for="(element, key) in props.aeaModel.elements" :key="key">
           <template v-for="(position, key2) in element.positions" :key="key2">
             <div class="element" :style="getELementStyle(element, position)" :title="JSON.stringify(element)">
-              <img v-if="element.barcode" :class="{rotate: element.barcode.match(/[B-Z]/)}" src="../assets/PDF_417.png" />
+              <img v-if="element.barcode" :class="{rotate: element.barcode.match(/[B-Z]/)}" src="../../public/PDF_417.png" />
               <span class="rounded bg-black px-0.5">{{ key }}</span>
             </div>
           </template>

@@ -51,7 +51,7 @@ function highlight(id) {
     bagtag_div.value.classList.remove('dim')
   }
 }
-const resolve = (path) => import.meta.resolve(path);
+const resolve = (path) => `${import.meta.env.BASE_URL}${path}`;
 
 function parseBTP(e) {
   const value = e.target.value.trim();
@@ -79,16 +79,16 @@ function findElement(id) {
         <li v-for="el in props.aeaModel.elements.filter(el => el.mirror)" v-bind:key="el.id" :data-id="el.id" :style="getStyles(el)">
           <S v-if="el.type==='SEPARATOR'" :class="getClasses(el)"></S>
           <C v-if="el.type.endsWith('CHARACTER')" :class="getClasses(el)">{{el.common_data?.prefix}}{{ BTP?.elements[el.common_data?.ref] }}{{ BTP?.elements[el.id] }}</C>
-          <img v-if="el.type.endsWith('BARCODE')" :class="getClasses(el)" :src="resolve(`../assets/${el.choice}.png`)">
-          <img v-if="el.type==='LOGO'" class="logo" :class="getClasses(el)" src="../assets/LOGO.png">
+          <img v-if="el.type.endsWith('BARCODE')" :class="getClasses(el)" :src="resolve(`${el.choice}.png`)">
+          <img v-if="el.type==='LOGO'" class="logo" :class="getClasses(el)" src="../../public/LOGO.png">
         </li>
       </ul>
       <ul>
         <li v-for="el in props.aeaModel.elements" v-bind:key="el.id" :data-id="el.id" :style="getStyles(el)">
           <S v-if="el.type==='SEPARATOR'" :class="getClasses(el)"></S>
           <C v-if="el.type.endsWith('CHARACTER')" :class="getClasses(el)">{{el.common_data?.prefix}}{{ BTP?.elements[el.common_data?.ref] }}{{ BTP?.elements[el.id] }}</C>
-          <img v-if="el.type.endsWith('BARCODE')" :class="getClasses(el)" :src="resolve(`../assets/${el.choice}.png`)">
-          <img v-if="el.type==='LOGO'" class="logo" :class="getClasses(el)" src="../assets/LOGO.png">
+          <img v-if="el.type.endsWith('BARCODE')" :class="getClasses(el)" :src="resolve(`${el.choice}.png`)">
+          <img v-if="el.type==='LOGO'" class="logo" :class="getClasses(el)" src="../../public/LOGO.png">
         </li>
       </ul>
       <id v-for="el in props.aeaModel.elements" v-bind:key="el.id" :data-id="el.id"

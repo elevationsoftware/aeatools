@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="463px" height="255px" viewBox="0 0 463 255" class="barcode-canvas" version="1.1" style="shape-rendering:crispEdges;" xmlns="http://www.w3.org/2000/svg">
+  <g text-rendering="geometricPrecision" fill="#000000">
+    <rect x="0" y="0" width="463" height="255" fill="#ffffff" />
+    <rect x="7" y="7" width="10" height="242" />
+    <rect x="22" y="7" width="5" height="242" />
+    <rect x="37" y="7" width="15" height="242" />
+    <rect x="62" y="7" width="10" height="242" />
+    <rect x="82" y="7" width="10" height="242" />
+    <rect x="97" y="7" width="10" height="242" />
+    <rect x="117" y="7" width="15" height="242" />
+    <rect x="137" y="7" width="10" height="242" />
+    <rect x="152" y="7" width="15" height="242" />
+    <rect x="172" y="7" width="5" height="242" />
+    <rect x="182" y="7" width="15" height="242" />
+    <rect x="202" y="7" width="10" height="242" />
+    <rect x="227" y="7" width="5" height="242" />
+    <rect x="252" y="7" width="5" height="242" />
+    <rect x="262" y="7" width="10" height="242" />
+    <rect x="282" y="7" width="10" height="242" />
+    <rect x="297" y="7" width="10" height="242" />
+    <rect x="312" y="7" width="20" height="242" />
+    <rect x="337" y="7" width="5" height="242" />
+    <rect x="362" y="7" width="10" height="242" />
+    <rect x="377" y="7" width="5" height="242" />
+    <rect x="392" y="7" width="10" height="242" />
+    <rect x="417" y="7" width="15" height="242" />
+    <rect x="437" y="7" width="5" height="242" />
+    <rect x="447" y="7" width="10" height="242" />
+  </g>
+</svg>
