@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="968px" height="126px" viewBox="0 0 968 126" class="barcode-canvas" version="1.1" style="shape-rendering:crispEdges;" xmlns="http://www.w3.org/2000/svg">
+  <g text-rendering="geometricPrecision" fill="#000000">
+    <rect x="0" y="0" width="968" height="126" fill="#ffffff" />
+    <rect x="7" y="7" width="5" height="113" />
+    <rect x="27" y="7" width="5" height="113" />
+    <rect x="37" y="7" width="15" height="113" />
+    <rect x="57" y="7" width="15" height="113" />
+    <rect x="77" y="7" width="5" height="113" />
+    <rect x="87" y="7" width="5" height="113" />
+    <rect x="97" y="7" width="5" height="113" />
+    <rect x="117" y="7" width="15" height="113" />
+    <rect x="137" y="7" width="15" height="113" />
+    <rect x="157" y="7" width="5" height="113" />
+    <rect x="167" y="7" width="15" height="113" />
+    <rect x="187" y="7" width="5" height="113" />
+    <rect x="207" y="7" width="5" height="113" />
+    <rect x="217" y="7" width="5" height="113" />
+    <rect x="227" y="7" width="15" height="113" />
+    <rect x="247" y="7" width="5" height="113" />
+    <rect x="257" y="7" width="15" height="113" />
+    <rect x="287" y="7" width="5" height="113" />
+    <rect x="297" y="7" width="5" height="113" />
+    <rect x="307" y="7" width="15" height="113" />
+    <rect x="327" y="7" width="15" height="113" />
+    <rect x="347" y="7" width="15" height="113" />
+    <rect x="377" y="7" width="5" height="113" />
+    <rect x="387" y="7" width="5" height="113" />
+    <rect x="397" y="7" width="5" height="113" />
+    <rect x="407" y="7" width="5" height="113" />
+    <rect x="417" y="7" width="5" height="113" />
+    <rect x="437" y="7" width="15" height="113" />
+    <rect x="457" y="7" width="5" height="113" />
+    <rect x="467" y="7" width="15" height="113" />
+    <rect x="487" y="7" width="15" height="113" />
+    <rect x="507" y="7" width="5" height="113" />
+    <rect x="527" y="7" width="15" height="113" />
+    <rect x="547" y="7" width="5" height="113" />
+    <rect x="557" y="7" width="5" height="113" />
+    <rect x="567" y="7" width="5" height="113" />
+    <rect x="577" y="7" width="15" height="113" />
+    <rect x="607" y="7" width="15" height="113" />
+    <rect x="627" y="7" width="5" height="113" />
+    <rect x="637" y="7" width="5" height="113" />
+    <rect x="647" y="7" width="5" height="113" />
+    <rect x="657" y="7" width="5" height="113" />
+    <rect x="677" y="7" width="5" height="113" />
+    <rect x="687" y="7" width="15" height="113" />
+    <rect x="707" y="7" width="15" height="113" />
+    <rect x="727" y="7" width="15" height="113" />
+    <rect x="747" y="7" width="5" height="113" />
+    <rect x="767" y="7" width="5" height="113" />
+    <rect x="777" y="7" width="15" height="113" />
+    <rect x="797" y="7" width="5" height="113" />
+    <rect x="807" y="7" width="5" height="113" />
+    <rect x="817" y="7" width="15" height="113" />
+    <rect x="847" y="7" width="5" height="113" />
+    <rect x="857" y="7" width="15" height="113" />
+    <rect x="877" y="7" width="5" height="113" />
+    <rect x="887" y="7" width="5" height="113" />
+    <rect x="907" y="7" width="5" height="113" />
+    <rect x="917" y="7" width="15" height="113" />
+    <rect x="937" y="7" width="15" height="113" />
+    <rect x="957" y="7" width="5" height="113" />
+  </g>
+</svg>
